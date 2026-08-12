@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="MauiAppMinhasCompras.Views.ListaProduto"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:MauiAppMinhasCompras.Models"
+    Title="Meus Produtos">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Novo" Clicked="OnNovoClicked" />
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="Auto,*" Padding="10">
+
+        <SearchBar Grid.Row="0"
+                   Placeholder="Buscar produto..."
+                   TextChanged="OnSearchTextChanged" />
+
+        <CollectionView Grid.Row="1"
+                         x:Name="ProdutosCollectionView"
+                         SelectionMode="Single"
+                         SelectionChanged="OnProdutoSelected">
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="8" />
+            </CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Produto">
+                    <Border Padding="10" StrokeShape="RoundRectangle 8">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <VerticalStackLayout Grid.Column="0">
+                                <Label Text="{Binding Descricao}" FontAttributes="Bold" FontSize="16" />
+                                <Label Text="{Binding Quantidade, StringFormat='Qtd: {0}'}" FontSize="12" />
+                            </VerticalStackLayout>
+                            <Label Grid.Column="1"
+                                   Text="{Binding Preco, StringFormat='R$ {0:F2}'}"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+
+</ContentPage>
